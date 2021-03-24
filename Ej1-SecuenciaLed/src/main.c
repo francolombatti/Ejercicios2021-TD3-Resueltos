@@ -17,12 +17,12 @@ void app_main()
 {
 	//Configuración
 	for(int i = 0; i < N_LED; i++){
-		gpio_pad_select_gpio(i);
+		gpio_pad_select_gpio(led[i]);
 		gpio_set_direction(led[i], GPIO_MODE_OUTPUT);
 	}
 	
 	for(int i = 0; i < N_PULSADOR; i++){
-		gpio_pad_select_gpio(i);
+		gpio_pad_select_gpio(pulsador[i]);
 		gpio_set_direction(pulsador[i], GPIO_MODE_INPUT);
 		gpio_set_pull_mode(pulsador[i], GPIO_PULLDOWN_ONLY);
 	}

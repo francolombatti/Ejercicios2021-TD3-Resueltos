@@ -2,10 +2,11 @@
  * Author: Fernando Ezequiel Daniele <fernandodaniele1993@gmai.com>
  * Date: 2021/03/24 
  *===========================================================================*/
-#include "../driver/include/driver/gpio.h"
+#include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "esp_log.h"
+#include "driver/gpio.h"
+#include "sdkconfig.h"
 
 #define N_LED 		2
 #define T_MS		10/portTICK_PERIOD_MS
@@ -16,14 +17,15 @@ unsigned long int contador[N_LED] = { 0, 0};
 
 void app_main()
 {
+	
 	//Configuración
 	for(int i = 0; i < N_LED; i++){
-		gpio_pad_select_gpio(i);
+		gpio_pad_select_gpio(led[i]);
 		gpio_set_direction(led[i], GPIO_MODE_OUTPUT);
 	}
 	
 	for(int i = 0; i < N_LED; i++){
-		gpio_pad_select_gpio(i);
+		gpio_pad_select_gpio(pulsador[i]);
 		gpio_set_direction(pulsador[i], GPIO_MODE_INPUT);
 		gpio_set_pull_mode(pulsador[i], GPIO_PULLDOWN_ONLY);
 	}
