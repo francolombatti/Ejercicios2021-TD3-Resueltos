@@ -1,6 +1,6 @@
 /*=============================================================================
  * Author: Fernando Ezequiel Daniele <fernandodaniele1993@gmai.com>
- * Date: 2021/03/17
+ * Date: 2021/03/17 
  *===========================================================================*/
 #include "../driver/include/driver/gpio.h"
 #include "freertos/FreeRTOS.h"
@@ -24,17 +24,18 @@ void app_main()
 	for(int i = 0; i < N_PULSADOR; i++){
 		gpio_pad_select_gpio(i);
 		gpio_set_direction(pulsador[i], GPIO_MODE_INPUT);
+		gpio_set_pull_mode(pulsador[i], GPIO_PULLDOWN_ONLY);
 	}
 
    int i = 0, sentido = 0;
    //Bucle infinito
    while( true )
     {
-		if (gpio_get_level(pulsador[0]) == 0)
+		if (gpio_get_level(pulsador[0]) == 1)
 		{
 			sentido = 1;
 		}
-	   	else if (gpio_get_level(pulsador[1]) == 0)
+	   	else if (gpio_get_level(pulsador[1]) == 1)
 		{
 			sentido = 0;
 		}	
@@ -43,7 +44,7 @@ void app_main()
 		{
 			gpio_set_level(led[i], 0);
 			i++;
-			if ( i > N_LED ){
+			if ( i >= N_LED ){
 				i = 0;
 			}
 			gpio_set_level(led[i], 1);
