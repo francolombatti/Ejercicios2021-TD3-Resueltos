@@ -63,8 +63,8 @@ void app_main()
    return 0;
 }
 
-
 /*
+
 #define LED1 GPIO_NUM_32 //ver de crear un tipo de datos
 #define LED2 GPIO_NUM_33
 #define LED3 GPIO_NUM_25
