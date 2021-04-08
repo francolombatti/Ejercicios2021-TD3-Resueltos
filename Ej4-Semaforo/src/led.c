@@ -1,23 +1,52 @@
 #include "../include/led.h"
 
-//void configurarLed(gpio_int_type_t ledR, gpio_int_type_t ledA, gpio_int_type_t ledV)
-void configurarLed()
+static gpio_int_type_t ledRojo, ledAmarillo, ledVerde; //estas variables solamente son accesibles en este archivo
+
+void configurarLed(gpio_int_type_t ledR, gpio_int_type_t ledA, gpio_int_type_t ledV)
 {
-    gpio_pad_select_gpio(ROJO);
-    gpio_set_direction(ROJO, GPIO_MODE_OUTPUT);
-    gpio_pad_select_gpio(AMARILLO);
-    gpio_set_direction(AMARILLO, GPIO_MODE_OUTPUT);
-    gpio_pad_select_gpio(VERDE);
-    gpio_set_direction(VERDE, GPIO_MODE_OUTPUT);
+    ledRojo = ledR;
+    ledAmarillo = ledA;
+    ledVerde = ledV;
+    gpio_pad_select_gpio(ledRojo);
+    gpio_set_direction(ledRojo, GPIO_MODE_OUTPUT);
+    gpio_pad_select_gpio(ledAmarillo);
+    gpio_set_direction(ledAmarillo, GPIO_MODE_OUTPUT);
+    gpio_pad_select_gpio(ledVerde);
+    gpio_set_direction(ledVerde, GPIO_MODE_OUTPUT);
 }
 
-void prenderLed(gpio_int_type_t led)
+void prenderLed(char led)
 {
-    gpio_set_level(led, 1);
+    switch (led)
+    {
+    case 'R':
+    gpio_set_level(ledRojo,1);
+    break;
+    case 'A':
+    gpio_set_level(ledAmarillo,1);
+    break;
+    case 'V':
+    gpio_set_level(ledVerde,1);
+    break;
+    default:
+        break;
+    }
 }
 
-void apagarLed(gpio_int_type_t led)
+void apagarLed(char led)
 {
-    gpio_set_level(led, 0);
-
+    switch (led)
+    {
+    case 'R':
+        gpio_set_level(ledRojo,0);
+        break;
+    case 'A':
+        gpio_set_level(ledAmarillo,0);
+        break;
+    case 'V':
+        gpio_set_level(ledVerde,0);
+        break;
+    default:
+        break;
+    }
 }

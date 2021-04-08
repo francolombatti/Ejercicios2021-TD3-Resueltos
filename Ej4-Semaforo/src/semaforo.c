@@ -3,23 +3,31 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 
+#define LED_VERDE GPIO_NUM_25
+#define LED_AMARILLO GPIO_NUM_26
+#define LED_ROJO GPIO_NUM_27
+
+#define T_VERDE		300
+#define T_AMARILLO	100
+#define T_ROJO		500
+
 void iniciarSemaforo()
 {
-
+    configurarLed(LED_ROJO, LED_AMARILLO, LED_VERDE);
 }
 
 void actualizarSemaforo()
 {
-    prenderLed(ROJO);
-    vTaskDelay(30);
-    prenderLed(AMARILLO);
-    vTaskDelay(10);
-    apagarLed(ROJO);
-    apagarLed(AMARILLO);
-    prenderLed(VERDE);
-    vTaskDelay(10);
-    apagarLed(VERDE);
-    prenderLed(AMARILLO);
-    vTaskDelay(5);
-    apagarLed(AMARILLO);
+    prenderLed('R');
+    vTaskDelay(T_ROJO);
+    prenderLed('A');
+    vTaskDelay(T_AMARILLO);
+    apagarLed('R');
+    apagarLed('A');
+    prenderLed('V');
+    vTaskDelay(T_VERDE);
+    apagarLed('V');
+    prenderLed('A');
+    vTaskDelay(T_AMARILLO);
+    apagarLed('A');
 }

@@ -4,5 +4,4 @@
 void iniciarSemaforo();   //configura el estado inicial del semaforo
 void actualizarSemaforo(); //actualiza el estado del semaforo
 
-
 #endif

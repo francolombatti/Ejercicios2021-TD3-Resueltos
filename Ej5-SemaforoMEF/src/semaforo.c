@@ -1,6 +1,15 @@
 #include "../include/led.h"
 #include "../include/semaforo.h"
 
+//definiciones para los pines donde se conectan los leds
+#define LED_VERDE GPIO_NUM_25
+#define LED_AMARILLO GPIO_NUM_26
+#define LED_ROJO GPIO_NUM_27
+
+#define T_VERDE		300
+#define T_AMARILLO	100
+#define T_ROJO		500
+
 // Tipo de datos para la variable de estados
 typedef enum{
     ROJO,
@@ -9,16 +18,17 @@ typedef enum{
     AMARILLO
 } estadoMEF_t;
 
-// Variable de estado (global)
-estadoMEF_t estadoActual;
-int contador;
+estadoMEF_t estadoActual, estadoAnterior; // Variable de estado (global)
+
+int contador; //variable para contar la cantidad de veces que ingresa a la funcipon actualizar MEF
+
 // Función Inicializar MEF
 void iniciarSemaforo(void){
-	 estadoActual = ROJO;
-	 contador = 0;
-    // Resto de la inicializacion
+	configurarLed(LED_ROJO, LED_AMARILLO, LED_VERDE);
+	estadoActual = ROJO;
+	estadoAnterior = AMARILLO;
+	contador = 0;
 }
-
 
 // Función Actualizar MEF
 void actualizarSemaforo(void)
@@ -27,11 +37,15 @@ void actualizarSemaforo(void)
 		case ROJO:
         {
             // Actualizar salida del estado
-			prenderLed("Rojo");
-			apagarLed("Amarillo");
-			apagarLed("Verde");
+			if(estadoAnterior != estadoActual)
+			{
+				prenderLed('R');
+				apagarLed('A');
+				apagarLed('V');
+				estadoAnterior = estadoActual;
+			}
     		// Chequear condiciones de transición de estado
-			if(contador == 60 ){
+			if(contador == T_ROJO ){
 				// Cambiar a otro estado
 				 estadoActual = ROJO_AMARILLO;
 				 contador = 0;
@@ -41,11 +55,15 @@ void actualizarSemaforo(void)
 		break;
 		case ROJO_AMARILLO:{
 			// Actualizar salida del estado
-			prenderLed("Rojo");
-			prenderLed("Amarillo");
-			apagarLed("Verde");
+			if(estadoAnterior != estadoActual)
+			{
+				prenderLed('R');
+				prenderLed('A');
+				apagarLed('V');
+				estadoAnterior = estadoActual;
+			}
     		// Chequear condiciones de transición de estado
-			if(contador == 10 ){
+			if(contador == T_AMARILLO ){
 				// Cambiar a otro estado
 				 estadoActual = VERDE;
 				 contador = 0;
@@ -55,24 +73,33 @@ void actualizarSemaforo(void)
 		break;
 		case VERDE:{
 			// Actualizar salida del estado
-			apagarLed("Rojo");
-			apagarLed("Amarillo");
-			prenderLed("Verde");
+			if(estadoAnterior != estadoActual)
+			{
+				apagarLed('R');
+				apagarLed('A');
+				prenderLed('V');
+				estadoAnterior = estadoActual;
+			}
     		// Chequear condiciones de transición de estado
-			if(contador == 30 ){
+			if(contador == T_VERDE ){
 				// Cambiar a otro estado
 				 estadoActual = AMARILLO;
 				 contador = 0;
 			}
 			contador++;
 		}
+		break;
 		case AMARILLO:{
 			// Actualizar salida del estado
-			apagarLed("Rojo");
-			apagarLed("Amarillo");
-			prenderLed("Verde");
+			if(estadoAnterior != estadoActual)
+			{
+				apagarLed('R');
+				prenderLed('A');
+				apagarLed('V');
+				estadoAnterior = estadoActual;
+			}
     		// Chequear condiciones de transición de estado
-			if(contador == 10 ){
+			if(contador == T_AMARILLO ){
 				// Cambiar a otro estado
 				 estadoActual = ROJO;
 				 contador = 0;
@@ -82,7 +109,7 @@ void actualizarSemaforo(void)
 		break;
 		default:{
 			//Si cae en un estado no valido, reinicio
-			InicializarMEF();
+			iniciarSemaforo();
 		}
 		break;
 	}	
