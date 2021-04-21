@@ -12,6 +12,7 @@
 #define PROCESADORA 0
 #define PROCESADORB 1
 #define RETARDO_US  1
+#define RETARDO_MS  1/pdMS_TO_TICKS
 
 void tareaDos( void * pvParameters ); //Prototipo de la tarea
 void tareaTres( void * pvParameters );
@@ -75,9 +76,9 @@ void tareaDos( void * pvParameters )
     while (true)
     {
         gpio_set_level(SALIDA2, 1);
-        ets_delay_us(RETARDO_US);
+        ets_delay_us(RETARDO_US); // probar con vTaskDelay(RETARDO_MS);
         gpio_set_level(SALIDA2,0);
-        ets_delay_us(RETARDO_US);
+        ets_delay_us(RETARDO_US); // probar con vTaskDelay(RETARDO_MS);
     }
 }
 
@@ -88,8 +89,8 @@ void tareaTres( void * pvParameters )
     while (true)
     {
         gpio_set_level(SALIDA3, 1);
-        ets_delay_us(RETARDO_US);
+        ets_delay_us(RETARDO_US); // probar con vTaskDelay(RETARDO_MS);
         gpio_set_level(SALIDA3,0);
-        ets_delay_us(RETARDO_US);
+        ets_delay_us(RETARDO_US); // probar con vTaskDelay(RETARDO_MS);
     }
 }
