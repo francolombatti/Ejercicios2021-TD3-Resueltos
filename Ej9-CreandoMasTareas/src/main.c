@@ -20,7 +20,7 @@ void tareaTres( void * pvParameters );
 void app_main() 
 {
     UBaseType_t prioridad = uxTaskPriorityGet (NULL);   //para obtener la prioridad de la tarea principal
-    printf("%d",prioridad);
+    printf("%d/n",prioridad);   //debería ser 1
 
     TaskHandle_t xHandle2 = NULL;            //Puntero a la tarea
     TaskHandle_t xHandle3 = NULL;            //Puntero a la tarea
@@ -50,7 +50,7 @@ void app_main()
 	gpio_set_pull_mode(PULSADOR, GPIO_PULLDOWN_ONLY);
     gpio_pad_select_gpio(SALIDA1);
     gpio_set_direction(SALIDA1, GPIO_MODE_OUTPUT);
-
+    
     while(true)
     {
         if (gpio_get_level(PULSADOR))

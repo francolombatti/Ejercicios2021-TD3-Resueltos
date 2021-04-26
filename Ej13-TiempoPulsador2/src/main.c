@@ -13,7 +13,6 @@
 #define PROCESADORB 1
 
 void destello( void* taskParmPtr ); //Prototipo de la función de la tarea
-void tarea_tecla( void* taskParmPtr );
 
 void app_main()
 {

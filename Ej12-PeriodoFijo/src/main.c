@@ -13,7 +13,7 @@
 #define INCREMENTO 100
 #define MAX_INC  (PERIODO_MS - INCREMENTO)
 
-void destello( void* taskParmPtr ); //Prototipo de la función de la tarea
+void tareaDestello( void* taskParmPtr ); //Prototipo de la función de la tarea
 
 void app_main()
 {
@@ -21,8 +21,8 @@ void app_main()
     // Devuelve pdPASS si la tarea fue creada y agregada a la lista ready
     // En caso contrario devuelve pdFAIL.
     BaseType_t res = xTaskCreatePinnedToCore(
-    	destello,                     	// Funcion de la tarea a ejecutar
-        "Destello",   	                // Nombre de la tarea como String amigable para el usuario
+    	tareaDestello,                     	// Funcion de la tarea a ejecutar
+        "tareaDestello",   	                // Nombre de la tarea como String amigable para el usuario
         configMINIMAL_STACK_SIZE, 		// Cantidad de stack de la tarea
         NULL,                          	// Parametros de tarea
         tskIDLE_PRIORITY+1,         	// Prioridad de la tarea -> Queremos que este un nivel encima de IDLE
@@ -39,7 +39,7 @@ void app_main()
 }
 
 // Implementacion de funcion de la tarea
-void destello( void* taskParmPtr )
+void tareaDestello( void* taskParmPtr )
 {
     // ---------- Congiguraciones ------------------------------
     gpio_pad_select_gpio(SALIDA1);
