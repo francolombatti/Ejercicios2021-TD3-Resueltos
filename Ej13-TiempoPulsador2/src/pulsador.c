@@ -45,7 +45,7 @@ void inicializarPulsador( void )
     gpio_set_direction(pulsadorA.tecla , GPIO_MODE_INPUT);
     gpio_set_pull_mode(pulsadorA.tecla, GPIO_PULLDOWN_ONLY); //Habilita resistencia de PULLDOWN interna
 
-    gpio_pad_select_gpio(SALIDA_PRUEBA);
+    gpio_pad_select_gpio(SALIDA_PRUEBA);                //replica lo que hace el pulsador
     gpio_set_direction(SALIDA_PRUEBA, GPIO_MODE_OUTPUT);
  
     // Crear tareas en freeRTOS

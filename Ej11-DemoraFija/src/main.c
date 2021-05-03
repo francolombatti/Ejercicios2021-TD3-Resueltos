@@ -58,5 +58,6 @@ void tareaDestello( void* taskParmPtr )
 
         // Envia la tarea al estado bloqueado durante xPeriodicity (delay periodico)
         vTaskDelayUntil( &xLastWakeTime , xPeriodicity );
+        //vTaskDelay( TON_LED); //probar con este delay
     }
 }

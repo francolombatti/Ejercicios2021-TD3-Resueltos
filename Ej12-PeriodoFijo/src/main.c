@@ -10,8 +10,8 @@
 #define PERIODO     pdMS_TO_TICKS(PERIODO_MS)
 #define PROCESADORA 0
 #define PROCESADORB 1
-#define INCREMENTO 100
-#define MAX_INC  (PERIODO_MS - INCREMENTO)
+#define INCREMENTO  100
+#define MAX_INC     (PERIODO_MS - INCREMENTO)
 
 void tareaDestello( void* taskParmPtr ); //Prototipo de la función de la tarea
 
@@ -41,7 +41,7 @@ void app_main()
 // Implementacion de funcion de la tarea
 void tareaDestello( void* taskParmPtr )
 {
-    // ---------- Congiguraciones ------------------------------
+    // ---------- Configuraciones ------------------------------
     gpio_pad_select_gpio(SALIDA1);
     gpio_set_direction(SALIDA1, GPIO_MODE_OUTPUT);
 
@@ -65,7 +65,7 @@ void tareaDestello( void* taskParmPtr )
             duty = 0;
         }
 
-        ets_delay_us(110000); //delay que representa cualquier otra instrucción que podría hacer esta tarea
+        ets_delay_us(100000); //delay que representa cualquier otra instrucción que podría hacer esta tarea
 
         // Envia la tarea al estado bloqueado durante xPeriodicity (delay periodico)
         vTaskDelayUntil( &xLastWakeTime , xPeriodicity );
