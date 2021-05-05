@@ -15,7 +15,7 @@
 typedef struct
 {
     gpio_int_type_t pin;
-    TickType_t tiempoOn;		//tiempo
+    TickType_t tiempoOn;		//tiempo Duty o ciclo de trabajo
     TickType_t periodo;
 } led_t;
 
@@ -33,7 +33,7 @@ void app_main()
     for(int i=0; i<N_LED; i++)
     {
         leds[i].pin = pines[i];
-        leds[i].tiempoOn = TON_LED * pow(2,i);
+        leds[i].tiempoOn = TON_LED * pow(2,i); //i=0 -> 1; i=1 -> 2; i=4;
         leds[i].periodo = PERIODO * pow(2,i);
 
         BaseType_t res = xTaskCreate(
