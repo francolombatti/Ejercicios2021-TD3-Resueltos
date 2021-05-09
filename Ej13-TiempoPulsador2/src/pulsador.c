@@ -103,6 +103,7 @@ void actualizarPulsador()
             if( !gpio_get_level( pulsadorA.tecla ) ){
                 pulsadorA.estado = BAJO;
                 botonLiberado();
+                crearTareaDestello();
             }
             else{
                 pulsadorA.estado = ALTO;
